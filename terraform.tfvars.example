@@ -1,0 +1,16 @@
+task_tracker_fastapi_env = {
+  DB_URL = "mysql+pymysql://<username>:<password>@<host>:<port>/<database>"
+  JWT_SECRET = "<jwt-secret>"
+}
+
+backend = {
+  bucket = "<terraform-backend-bucket-0name>"
+  key = "<key-to-backend-file/terraform.tfstate>"
+  region = "<aws-region>"
+}
+
+project = {
+  region = "<aws-region>"
+  name = "<nice-name>"
+  root_domain_name = "<fqdn-for-your-site>"
+}

@@ -89,6 +89,8 @@ resource "aws_cloudfront_distribution" "task_tracker_fastapi" {
     acm_certificate_arn = aws_acm_certificate.task_tracker_fastapi.arn
     ssl_support_method = "sni-only"
   }
+
+  depends_on = [ aws_acm_certificate_validation.task_tracker_fastapi_validation ]
   aliases = ["${var.project.name}.${var.project.root_domain_name}"]
 }
 

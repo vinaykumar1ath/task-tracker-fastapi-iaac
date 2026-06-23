@@ -1,9 +1,17 @@
 data "aws_caller_identity" "current" {}
 data "aws_region" "current" {}
 
+resource "random_string" "s3_alphanum_suffix" {
+  length = 5
+  lower = true
+  special = false
+  upper = false
+  numeric = true
+}
+
 resource "aws_s3_bucket" "task_tracker_fastapi" {
   region = var.project.region
-  bucket = format("%s-%s-%s-an",var.project.name, data.aws_caller_identity.current.account_id, data.aws_region.current.region)
+  bucket = format("%s-%s-%s-%s-an",var.project.name, random_string.s3_alphanum_suffix.result, data.aws_caller_identity.current.account_id, data.aws_region.current.region)
   bucket_namespace = "account-regional"
   force_destroy = true
 }

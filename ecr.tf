@@ -7,6 +7,14 @@ resource "aws_ecr_repository" "task_tracker_fastapi" {
     filter = "latest*"
     filter_type = "WILDCARD"
   }
+
+  provisioner "local-exec" {
+    command = <<-EOT
+      docker pull public.ecr.aws/lambda/provided:latest
+      docker tag public.ecr.aws/lambda/provided:latest ${self.repository_url}:latest
+      docker push ${self.repository_url}:latest
+    EOT
+  }
 }
 
 output "ecr_repo_arn" {
